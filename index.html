@@ -6,119 +6,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Will You Be My Valentine?</title>
     <style>
-     body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('tmc&me.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    font-family: 'Arial', sans-serif;
-    color: rgb(243, 116, 116);
-    overflow: hidden; /* Consider removing if you want scrolling */
-}
+        body {
+            margin: 0;
+            min-height: 100vh; /* Ensure full height to allow scrolling */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('tmc&me.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+            color: rgb(243, 116, 116);
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
 
-.container {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2rem; /* Adjusted padding */
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 0, 123, 0.3);
-    animation: fadeIn 2s;
-    max-width: 90%; /* Occupy most of the screen width */
-    margin: 1rem auto; /* Center horizontally */
-    box-sizing: border-box; /* Include padding in width calculation */
-}
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 0, 123, 0.3);
+            animation: fadeIn 2s;
+            max-width: 90%;
+            margin: 1rem auto;
+            box-sizing: border-box;
+        }
 
-h1 {
-    color: #ff007b;
-    font-size: 2em; /* Adjusted font size */
-    margin-bottom: 1rem;
-    font-family: 'Pacifico', cursive;
-}
+        h1 {
+            color: #ff007b;
+            font-size: 2em;
+            margin-bottom: 1rem;
+            font-family: 'Pacifico', cursive;
+        }
 
-p {
-    color: #333;
-    font-size: 1em; /* Adjusted font size */
-    line-height: 1.6;
-    max-width: 100%; /* Take up full width within container */
-    margin: 1rem auto;
-    box-sizing: border-box; /* Include padding in width calculation */
+        p {
+            color: #333;
+            font-size: 1em;
+            line-height: 1.6;
+            max-width: 100%;
+            margin: 1rem auto;
+            box-sizing: border-box;
+        }
 
-}
+        .button {
+            background: #ff007b;
+            color: white;
+            padding: 0.8rem 1.6rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+            margin: 1rem;
+        }
 
-.button {
-    background: #ff007b;
-    color: white;
-    padding: 0.8rem 1.6rem; /* Adjusted padding */
-    border: none;
-    border-radius: 25px;
-    font-size: 1em; /* Adjusted font size */
-    cursor: pointer;
-    transition: transform 0.3s, background 0.3s;
-    margin: 1rem;
-}
+        .button:hover {
+            background: #ff1493;
+            transform: scale(1.05);
+        }
 
-.button:hover {
-    background: #ff1493;
-    transform: scale(1.05); /* Slightly less scaling */
-}
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
 
-.hearts {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-}
+        .heart {
+            position: absolute;
+            color: #ff007b;
+            animation: float 3s infinite;
+            font-size: 1.5em;
+        }
 
-.heart {
-    position: absolute;
-    color: #ff007b;
-    animation: float 3s infinite;
-    font-size: 1.5em; /* Adjust heart size */
-}
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-30px); } /* Smaller initial offset */
-    to { opacity: 1; transform: translateY(0); }
-}
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
 
-@keyframes float {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-}
+        #message {
+            display: none;
+            margin-top: 1rem;
+            font-size: 1.2em;
+            color: #ff007b;
+        }
 
-#message {
-    display: none;
-    margin-top: 1rem;
-    font-size: 1.2em; /* Adjusted font size */
-    color: #ff007b;
-}
-
-/* Media Query for iPhone 11 (and similar) */
-@media (max-width: 414px) { /* Adjust breakpoint if needed */
-    h1 {
-        font-size: 1.6em; /* Smaller heading */
-    }
-    p {
-        font-size: 0.9em; /* Smaller paragraph text */
-    }
-    .button {
-        font-size: 0.9em; /* Smaller button text */
-        padding: 0.6rem 1.2rem; /* Smaller button padding */
-    }
-    .container {
-        padding: 1.5rem; /* Smaller container padding */
-    }
-    .heart {
-        font-size: 1.2em; /* Smaller hearts */
-    }
-}
+        /* Media Query for iPhone 11 (and similar) */
+        @media (max-width: 414px) {
+            h1 {
+                font-size: 1.6em;
+            }
+            p {
+                font-size: 0.9em;
+            }
+            .button {
+                font-size: 0.9em;
+                padding: 0.6rem 1.2rem;
+            }
+            .container {
+                padding: 1.5rem;
+            }
+            .heart {
+                font-size: 1.2em;
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
@@ -126,27 +125,26 @@ p {
     <div class="hearts" id="hearts"></div>
     
     <div class="container">
-        <h1>💖My Dearest Nelly Mbachi Chola Tanganyika,
-            💖</h1>
-            <p>
-                Words seem to fail me when I try to express the depth of my feelings for you. 🥺<br/>
-            
-                From the moment I saw you, I knew there was something truly special about you. ✨ To me, you are the most beautiful girl in the world. 💖<br/>
-                Your smile, Nelly, it's like sunshine on a cloudy day – warm, radiant, and it melts my heart every single time. ☀️😊<br/>
-            
-                You're not just beautiful on the outside, you have a beautiful heart too. ❤️ Your kindness, compassion, and generosity inspire me every day. 🙏<br/>
-            
-                Your kindness, your compassion, your spirit... you are truly an amazing person. 🌟 You've become my world, the center of my universe. 🌍<br/>
-            
-                I know I may not always say it, but I love you more than words can possibly express. 💖 More than you'll ever know. ♾️ And I promise you, I will fight for you. 💪<br/>
-                I will work tirelessly to make sure you're mine.  I can't imagine life without you, and trust me, it's not a life I want. 😔<br/>
-            
-                Nelly Mbachi Chola Tanganyika, will you do me the incredible honor of becoming my Valentine? 🌹<br/>
-            
-                With all my love, ❤️<br/>
-            
-                Elvis Lishebo 
-            </p>
+        <h1>💖My Dearest Nelly Mbachi Chola Tanganyika, 💖</h1>
+        <p>
+            Words seem to fail me when I try to express the depth of my feelings for you. 🥺<br/>
+        
+            From the moment I saw you, I knew there was something truly special about you. ✨ To me, you are the most beautiful girl in the world. 💖<br/>
+            Your smile, Nelly, it's like sunshine on a cloudy day – warm, radiant, and it melts my heart every single time. ☀️😊<br/>
+        
+            You're not just beautiful on the outside, you have a beautiful heart too. ❤️ Your kindness, compassion, and generosity inspire me every day. 🙏<br/>
+        
+            Your kindness, your compassion, your spirit... you are truly an amazing person. 🌟 You've become my world, the center of my universe. 🌍<br/>
+        
+            I know I may not always say it, but I love you more than words can possibly express. 💖 More than you'll ever know. ♾️ And I promise you, I will fight for you. 💪<br/>
+            I will work tirelessly to make sure you're mine.  I can't imagine life without you, and trust me, it's not a life I want. 😔<br/>
+        
+            Nelly Mbachi Chola Tanganyika, will you do me the incredible honor of becoming my Valentine? 🌹<br/>
+        
+            With all my love, ❤️<br/>
+        
+            Elvis Lishebo 
+        </p>
         
         <button class="button" onclick="showResponse()">YES! 💝</button>
         <button class="button" onmouseover="dodgeButton()">No...</button>
