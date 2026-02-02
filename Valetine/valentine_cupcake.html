@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💜</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --purple: #9b59b6;
+            --deep-purple: #6c3483;
+            --pink: #ff69b4;
+            --lavender: #e8d5f2;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background */
+        .background-overlay {
+            position: fixed;
+            inset: 0;
+            background-image: src = "cupcake.jpg"; /* replace image */
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        .background-overlay::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(155, 89, 182, 0.85),
+                rgba(255, 105, 180, 0.85),
+                rgba(232, 213, 242, 0.85)
+            );
+            backdrop-filter: blur(3px);
+        }
+
+        /* Floating flowers */
+        .lilies-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .lily {
+            position: absolute;
+            animation: floatLily 12s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes floatLily {
+            0% { transform: translateY(100vh); opacity: 0; }
+            20% { opacity: 0.8; }
+            50% { transform: translateY(50vh) translateX(40px); }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+
+        /* Card */
+        .container {
+            position: relative;
+            z-index: 10;
+            background: rgba(255,255,255,0.95);
+            padding: 60px 50px;
+            max-width: 800px;
+            text-align: center;
+            border-radius: 40px;
+            box-shadow: 0 40px 100px rgba(155, 89, 182, 0.4);
+            animation: fadeInScale 1s ease;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .corner-lily {
+            position: absolute;
+            font-size: 60px;
+            opacity: 0.6;
+        }
+
+        .lily-top-left { top: -20px; left: -20px; }
+        .lily-top-right { top: -20px; right: -20px; }
+        .lily-bottom-left { bottom: -20px; left: -20px; }
+        .lily-bottom-right { bottom: -20px; right: -20px; }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: var(--deep-purple);
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .divider {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            margin: 30px auto;
+        }
+
+        .message {
+            font-size: 1.5rem;
+            line-height: 2;
+            margin: 25px 0;
+            color: #444;
+        }
+
+        .message.highlight {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--pink);
+        }
+
+        .heart-icon {
+            font-size: 7rem;
+            margin: 20px 0;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .question {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin: 40px 0;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-size: 1.5rem;
+            padding: 18px 60px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: white;
+        }
+
+        .no-btn {
+            background: white;
+            border: 3px solid var(--purple);
+            color: var(--purple);
+        }
+
+        .no-btn.disappearing {
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
+        }
+
+        /* Celebration */
+        .celebration {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            text-align: center;
+        }
+
+        .celebration.active {
+            display: flex;
+        }
+
+        .celebration h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+        }
+
+        .celebration .hearts {
+            font-size: 8rem;
+            margin: 20px 0;
+        }
+
+        /* iPhone 13 & small phones */
+        @media (max-width: 430px) {
+            .container {
+                padding: 28px 20px;
+                border-radius: 25px;
+            }
+
+            h1 { font-size: 2.4rem; }
+            .subtitle { font-size: 1.1rem; }
+            .message { font-size: 1.05rem; line-height: 1.8; }
+            .message.highlight { font-size: 1.3rem; }
+            .heart-icon { font-size: 4rem; }
+            .question { font-size: 1.7rem; }
+
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            button {
+                width: 100%;
+                font-size: 1.1rem;
+                padding: 15px;
+            }
+
+            .celebration h2 { font-size: 2.5rem; }
+            .celebration .hearts { font-size: 4.5rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="background-overlay"></div>
+<div class="lilies-container" id="liliesContainer"></div>
+
+<div class="container">
+    <div class="corner-lily lily-top-left">🌸</div>
+    <div class="corner-lily lily-top-right">🌸</div>
+    <div class="corner-lily lily-bottom-left">🌸</div>
+    <div class="corner-lily lily-bottom-right">🌸</div>
+
+    <h1>My Sweet Cupcake</h1>
+    <p class="subtitle">The sweetest thing in my life 🧁</p>
+
+    <div class="divider"></div>
+
+    <p class="message">
+        You're all that I have ever wanted,<br>
+        everything I've ever dreamed of,<br>
+        and more than I deserve.
+    </p>
+
+    <div class="heart-icon">💜💖</div>
+
+    <p class="message highlight">
+        You're my cupcake,<br>my forever and always.
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="question">Will you be my Valentine?</p>
+
+    <div class="buttons">
+        <button class="yes-btn" onclick="celebrate()">Yes, I Will 💜</button>
+        <button class="no-btn" id="noBtn" onclick="makeDisappear()">Maybe Not…</button>
+    </div>
+</div>
+
+<div class="celebration" id="celebration">
+    <div>
+        <h2>You Made Me The Happiest 🎉</h2>
+        <div class="hearts">💜💖💜</div>
+        <p>Forever yours ✨</p>
+    </div>
+</div>
+
+<script>
+    const lilies = ['🌸','🌺','💐'];
+
+    function createLily() {
+        const lily = document.createElement('div');
+        lily.className = 'lily';
+        lily.innerHTML = lilies[Math.floor(Math.random() * lilies.length)];
+        lily.style.left = Math.random() * 100 + '%';
+        lily.style.fontSize = (Math.random() * 30 + 20) + 'px';
+        document.getElementById('liliesContainer').appendChild(lily);
+        setTimeout(() => lily.remove(), 12000);
+    }
+
+    if (window.innerWidth > 430) {
+        setInterval(createLily, 1000);
+    } else {
+        setInterval(createLily, 1800);
+    }
+
+    function makeDisappear() {
+        const btn = document.getElementById('noBtn');
+        btn.classList.add('disappearing');
+        setTimeout(() => btn.style.display = 'none', 400);
+    }
+
+    function celebrate() {
+        document.getElementById('celebration').classList.add('active');
+    }
+</script>
+
+</body>
+</html>
